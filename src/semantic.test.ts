@@ -1,4 +1,4 @@
-import { evaluate } from './semantic';
+import { evaluate, matchWords } from './semantic';
 import { WordType } from './types';
 
 describe('logical evaluation', () => {
@@ -33,14 +33,14 @@ describe('logical evaluation', () => {
 describe('interpret semantics', () => {
   it('one field equals value', () => {
     expect(
-      match({ a: 5, b: 3 }, [
+      matchWords({ a: 5, b: 3 }, [
         { type: WordType.Field, value: 'a' },
         { type: WordType.Operator, value: '=' },
         { type: WordType.Value, value: '5' },
       ]),
     ).toBeTruthy();
     expect(
-      match({ a: 5, b: 3 }, [
+      matchWords({ a: 5, b: 3 }, [
         { type: WordType.Field, value: 'a' },
         { type: WordType.Operator, value: '=' },
         { type: WordType.Value, value: '2' },
@@ -50,7 +50,7 @@ describe('interpret semantics', () => {
 
   it('two expressions connected by and', () => {
     expect(
-      match({ a: 5, b: 3 }, [
+      matchWords({ a: 5, b: 3 }, [
         { type: WordType.Field, value: 'a' },
         { type: WordType.Operator, value: '=' },
         { type: WordType.Value, value: '5' },
@@ -61,7 +61,7 @@ describe('interpret semantics', () => {
       ]),
     ).toBeTruthy();
     expect(
-      match({ a: 5, b: 0 }, [
+      matchWords({ a: 5, b: 0 }, [
         { type: WordType.Field, value: 'a' },
         { type: WordType.Operator, value: '=' },
         { type: WordType.Value, value: '5' },
@@ -75,7 +75,7 @@ describe('interpret semantics', () => {
 
   it('grouped expressions', () => {
     expect(
-      match({ a: 5, b: 3, c: 'jeff' }, [
+      matchWords({ a: 5, b: 3, c: 'jeff' }, [
         { type: WordType.Field, value: 'a' },
         { type: WordType.Operator, value: '>=' },
         { type: WordType.Value, value: '5' },
@@ -96,7 +96,7 @@ describe('interpret semantics', () => {
     ).toBeTruthy();
 
     expect(
-      match({ a: 5, b: 3, c: 'jeff' }, [
+      matchWords({ a: 5, b: 3, c: 'jeff' }, [
         { type: WordType.Field, value: 'a' },
         { type: WordType.Operator, value: '>=' },
         { type: WordType.Value, value: '5' },
