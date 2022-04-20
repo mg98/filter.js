@@ -3,17 +3,17 @@
     Filter JSONs using SQL-like string syntax!
 </p>
 
-> 🚧👷‍♂️ This project is still under construction and the library is **not yet available**! Star this repository to stay updated.
+> 🚧 This project is still under construction and the library is **not yet available**! Star this repository to stay updated.
 
 <p align="center">
-  <a href="https://github.com/mg98/constraint-js/actions/workflows/test.yml">
-    <img src="https://github.com/mg98/constraint-js/actions/workflows/test.yml/badge.svg">
+  <a href="https://github.com/mg98/condition-js/actions/workflows/test.yml">
+    <img src="https://github.com/mg98/condition-js/actions/workflows/test.yml/badge.svg">
   </a>
-  <a href="https://codecov.io/gh/mg98/constraint-js">
-    <img src="https://codecov.io/gh/mg98/constraint-js/branch/main/graph/badge.svg?token=RNG38NX4WY">
+  <a href="https://codecov.io/gh/mg98/condition-js">
+    <img src="https://codecov.io/gh/mg98/condition-js/branch/main/graph/badge.svg?token=RNG38NX4WY">
   </a>
   <a href="./LICENSE">
-    <img src="https://img.shields.io/github/license/mg98/constraiint-js">
+    <img src="https://img.shields.io/github/license/mg98/condition-js">
   </a>
 </p>
 
