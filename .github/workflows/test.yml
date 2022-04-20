@@ -9,3 +9,8 @@ jobs:
       run: npm i
     - name: Run tests
       run: npm test
+    - name: Run coverage
+      run:  npm test -- --coverage
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
+      
