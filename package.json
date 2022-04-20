@@ -1,17 +1,31 @@
 {
-  "name": "constraintjs",
+  "name": "condition-js",
   "version": "0.0.1",
-  "description": "",
+  "description": "Filter JSONs using SQL-like conditional expression syntax!",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "files": [
     "lib/"
   ],
   "scripts": {
-    "tsc": "npx tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
-    "test": "jest"
+    "build": "npx tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "test": "jest",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
-  "keywords": ["sql", "json"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mg98/constraint-js.git"
+  },
+  "keywords": [
+    "sql",
+    "json"
+  ],
   "author": "Marcel Gregoriadis <m.gregoriadis@gmail.com>",
   "license": "MIT",
   "devDependencies": {
@@ -21,8 +35,11 @@
     "@types/jest": "^27.4.1",
     "babel-jest": "^27.5.1",
     "jest": "^27.5.1",
+    "prettier": "^2.6.2",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.6.3"
   }
 }
