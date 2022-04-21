@@ -1,7 +1,7 @@
 import { Word, WordType } from './types';
 
 // application of generic operator on two generics
-function express(a: any, b: any, op: string): Boolean {
+function express(a: any, b: any, op: string): boolean {
   switch (op) {
     case '=':
       return a == b;
@@ -25,7 +25,7 @@ function express(a: any, b: any, op: string): Boolean {
 }
 
 // logical evaluation
-export function evaluate(expressions: Boolean[], logicalOps: string[]): Boolean {
+export function evaluate(expressions: boolean[], logicalOps: string[]): boolean {
   if (expressions.length === 1) return expressions[0];
 
   // merge logical AND operations first
@@ -51,12 +51,12 @@ export function evaluate(expressions: Boolean[], logicalOps: string[]): Boolean 
   return expressions[0];
 }
 
-export function matchWords(record: Record<string, any>, words: Word[]): Boolean {
+export function matchWords(record: Record<string, any>, words: Word[]): boolean {
   let field: string | undefined;
   let op: string | undefined;
   let value: string | undefined;
-  let expressions: Boolean[] = [];
-  let logicalOps: string[] = [];
+  const expressions: boolean[] = [];
+  const logicalOps: string[] = [];
 
   function resetExprVars() {
     field = undefined;
@@ -64,21 +64,21 @@ export function matchWords(record: Record<string, any>, words: Word[]): Boolean 
     value = undefined;
   }
 
-  for (let i = 0; i < words.length; i++) {
-    switch (words[i].type) {
+  for (const word of words) {
+    switch (word.type) {
       case WordType.Field:
-        field = words[i].value?.toString();
+        field = word.value?.toString();
         break;
       case WordType.Operator:
-        op = words[i].value?.toString();
+        op = word.value?.toString();
         break;
       case WordType.Value:
-        value = words[i].value?.toString();
+        value = word.value?.toString();
         break;
     }
 
-    if (words[i].type === WordType.Group) {
-      const groupWords = words[i].words;
+    if (word.type === WordType.Group) {
+      const groupWords = word.words;
       if (!groupWords) throw new Error('internal error');
       expressions.push(matchWords(record, groupWords));
       resetExprVars();
@@ -92,15 +92,12 @@ export function matchWords(record: Record<string, any>, words: Word[]): Boolean 
     }
 
     if (field && op && value) {
-      const subfields = field.split('.')
-      let recordValue = record[subfields[0]];
-      if (!record.hasOwnProperty(field)) throw new Error(`object has no key \`${field}\``);
-      for (let j = 1; j < subfields.length; j++) {
-        if (!recordValue.hasOwnProperty(subfields[j])) throw new Error(`object has no key \`${field}\``);
-        value = recordValue[subfields[j]];
+      let recordValue = record;
+      for (const subfield of field.split('.')) {
+        if (!recordValue.hasOwnProperty(subfield)) throw new Error(`object has no key \`${field}\``);
+        recordValue = recordValue[subfield];
       }
 
-      if (!record.hasOwnProperty(field)) throw new Error('internal error');
       expressions.push(express(recordValue, value, op));
       resetExprVars();
     }

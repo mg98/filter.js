@@ -34,7 +34,7 @@ npm i condition-js
 ## Example
 
 ```js
-import condition from 'condition-js';
+import Condition from 'condition-js';
 
 const clients = [
     {
@@ -59,7 +59,7 @@ const clients = [
     }
 ]
 
-const alcoholClients = data.filter(client => condition.match(cliemt "(age >= 18 and country in ('Germany', 'Turkey', 'Vietnam') or age >= 21 and country = 'USA') and country != 'Arabia'"));
+const alcoholClients = data.filter(client => Condition.match(cliemt "(age >= 18 and country in ('Germany', 'Turkey', 'Vietnam') or age >= 21 and country = 'USA') and country != 'Arabia'"));
 
 console.log(alcoholClients);
 // [

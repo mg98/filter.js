@@ -1,5 +1,5 @@
 {
-  "name": "condition-js",
+  "name": "@mg98/condition-js",
   "version": "0.0.1",
   "description": "Filter JSONs using SQL-like conditional expression syntax!",
   "main": "lib/cjs/index.js",
@@ -21,7 +21,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mg98/constraint-js.git"
+    "url": "git+https://github.com/mg98/condition-js.git"
+  },
+  "publishConfig": {
+      "name": "@mg98/condition-js",
+      "registry": "https://npm.pkg.github.com/mg98"
   },
   "keywords": [
     "sql",
