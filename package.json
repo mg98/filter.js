@@ -1,13 +1,14 @@
 {
   "name": "@mg98/condition-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Filter JSONs using SQL-like conditional expression syntax!",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
-  "types": "lib/cjs/types.d.ts",
+  "types": "lib/cjs/index.d.ts",
   "files": [
     "lib/"
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "npx tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "test": "jest",
