@@ -12,6 +12,9 @@
   <a href="https://codecov.io/gh/mg98/condition-js">
     <img src="https://codecov.io/gh/mg98/condition-js/branch/main/graph/badge.svg?token=RNG38NX4WY">
   </a>
+  <a href="https://deepscan.io/dashboard#view=project&tid=17510&pid=20859&bid=581033">
+    <img src="https://deepscan.io/api/teams/17510/projects/20859/branches/581033/badge/grade.svg">
+  </a>
   <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/mg98/condition-js">
   </a>
@@ -72,3 +75,20 @@ console.log(alcoholClients);
 //     }
 // ]
 ```
+
+## Features
+
+The goal of _condition.js_ is to create a language that is not only a powerful tool, but also a convenient and fault-tolerant one.
+
+✅ Basic comparison operators `=`, `!=`, `>`, `<`, `>=`, `<=`
+✅ Operators `in` and `not in` in combination with array values (`('Apple', 'Peach', 'Banana')`)
+✅ Supporting value types string and number (including floating values)
+✅ Logical operators `and` and `or` to combine expressions
+✅ Deep property access (e.g. `address.street = 'Elm Str'`)
+✅ Nested expressions using parantheses
+
+**Not yet supported...**
+❌ Boolean type
+❌ Symbol to escape character `'` in value definition
+❌ Support for `"` as alternative value quotation marks
+❌ Narrow typing (e.g. `a>3 and b!='hello'`)

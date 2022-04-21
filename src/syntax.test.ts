@@ -10,6 +10,14 @@ describe('interpret syntax from input', () => {
     ]);
   });
 
+  it('field equals string (plain field definition and subfield)', () => {
+    expect(extractWords("friends.besties.name = 'Manni'")).toEqual([
+      { type: WordType.Field, value: 'friends.besties.name' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: 'Manni' },
+    ]);
+  });
+
   it('field equals string (accent field definition)', () => {
     expect(extractWords("`Current Mood` = 'ok'")).toEqual([
       { type: WordType.Field, value: 'Current Mood' },
@@ -66,7 +74,7 @@ describe('interpret syntax from input', () => {
     ]);
   });
 
-  it('field dies not equal value', () => {
+  it('field does not equal value', () => {
     expect(extractWords('age != 18')).toEqual([
       { type: WordType.Field, value: 'age' },
       { type: WordType.Operator, value: '!=' },

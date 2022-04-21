@@ -92,8 +92,16 @@ export function matchWords(record: Record<string, any>, words: Word[]): Boolean 
     }
 
     if (field && op && value) {
+      const subfields = field.split('.')
+      let recordValue = record[subfields[0]];
+      if (!record.hasOwnProperty(field)) throw new Error(`object has no key \`${field}\``);
+      for (let j = 1; j < subfields.length; j++) {
+        if (!recordValue.hasOwnProperty(subfields[j])) throw new Error(`object has no key \`${field}\``);
+        value = recordValue[subfields[j]];
+      }
+
       if (!record.hasOwnProperty(field)) throw new Error('internal error');
-      expressions.push(express(record[field], value, op));
+      expressions.push(express(recordValue, value, op));
       resetExprVars();
     }
   }

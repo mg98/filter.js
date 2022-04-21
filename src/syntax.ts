@@ -179,7 +179,7 @@ export function extractWords(conditionString: string): Word[] {
       continue;
     }
 
-    if (s[i].match(/[a-zA-Z]|\_/)) {
+    if (s[i].match(/[a-zA-Z]|\_|\./)) {
       if (stringValueRec === -1 && accentFieldRec === -1 && plainFieldRec === -1) {
         if (numericValueRec !== -1) throw new Error('illegal character inside value definition');
         plainFieldRec = i;
