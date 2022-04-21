@@ -25,7 +25,7 @@
   },
   "publishConfig": {
       "name": "@mg98/condition-js",
-      "registry": "https://npm.pkg.github.com/mg98"
+      "registry": "https://registry.npmjs.org"
   },
   "keywords": [
     "sql",

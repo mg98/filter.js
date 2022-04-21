@@ -3,8 +3,6 @@
     Filter JSONs using SQL-like string syntax!
 </p>
 
-> 🚧 This project is still under construction and the library is **not yet available**! Star this repository to stay updated.
-
 <p align="center">
   <a href="https://github.com/mg98/condition-js/actions/workflows/test.yml">
     <img src="https://github.com/mg98/condition-js/actions/workflows/test.yml/badge.svg">
@@ -14,6 +12,9 @@
   </a>
   <a href="https://deepscan.io/dashboard#view=project&tid=17510&pid=20859&bid=581033">
     <img src="https://deepscan.io/api/teams/17510/projects/20859/branches/581033/badge/grade.svg">
+  </a>
+  <a href="https://www.npmjs.com/package/@mg98/condition-js">
+    <img alt="npm (scoped)" src="https://img.shields.io/npm/v/@mg98/condition-js">
   </a>
   <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/mg98/condition-js">
@@ -28,7 +29,7 @@ The syntax is strongly inspired by the syntax for the expression of conditions i
 ## Install
 
 ```
-npm i condition-js
+npm i @mg98/condition-js
 ```
 
 ## Example
@@ -59,7 +60,9 @@ const clients = [
     }
 ]
 
-const alcoholClients = data.filter(client => Condition.match(cliemt "(age >= 18 and country in ('Germany', 'Turkey', 'Vietnam') or age >= 21 and country = 'USA') and country != 'Arabia'"));
+const alcoholClients = data.filter(client => Condition.match(client, 
+  "(age >= 18 and country in ('Germany', 'Turkey', 'Vietnam') or age >= 21 and country = 'USA') and country != 'Arabia'"
+));
 
 console.log(alcoholClients);
 // [
@@ -81,14 +84,23 @@ console.log(alcoholClients);
 The goal of _condition.js_ is to create a language that is not only a powerful tool, but also a convenient and fault-tolerant one.
 
 ✅ Basic comparison operators `=`, `!=`, `>`, `<`, `>=`, `<=`
+
 ✅ Operators `in` and `not in` in combination with array values (`('Apple', 'Peach', 'Banana')`)
+
 ✅ Supporting value types string and number (including floating values)
+
 ✅ Logical operators `and` and `or` to combine expressions
+
 ✅ Deep property access (e.g. `address.street = 'Elm Str'`)
+
 ✅ Nested expressions using parantheses
 
 **Not yet supported...**
+
 ❌ Boolean type
+
 ❌ Symbol to escape character `'` in value definition
+
 ❌ Support for `"` as alternative value quotation marks
+
 ❌ Narrow typing (e.g. `a>3 and b!='hello'`)
