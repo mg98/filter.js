@@ -10,12 +10,13 @@
     "export": "next export"
   },
   "dependencies": {
-    "@mg98/condition-js": "^0.0.2",
+    "@mg98/condition-js": "latest",
     "next": "12.1.5",
     "react": "18.0.0",
     "react-dom": "18.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
     "@faker-js/faker": "^6.1.2",
     "@svgr/webpack": "^6.2.1",
     "eslint": "8.13.0",

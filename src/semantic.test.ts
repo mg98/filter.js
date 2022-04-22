@@ -31,6 +31,10 @@ describe('logical evaluation', () => {
 });
 
 describe('interpret semantics', () => {
+  it('empty query', () => {
+    expect(matchWords({ a: 3, b: 'hi' }, [])).toBeTruthy();
+  });
+
   it('one field equals value', () => {
     expect(
       matchWords({ a: 5, b: 3 }, [

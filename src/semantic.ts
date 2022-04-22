@@ -48,7 +48,7 @@ export function evaluate(expressions: boolean[], logicalOps: string[]): boolean 
     }
   }
 
-  return expressions[0];
+  return expressions.length > 0 ? expressions[0] : true;
 }
 
 export function matchWords(record: Record<string, any>, words: Word[]): boolean {

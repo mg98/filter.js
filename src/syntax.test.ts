@@ -2,6 +2,10 @@ import { extractWords } from './syntax';
 import { WordType } from './types';
 
 describe('interpret syntax from input', () => {
+  it('empty query', () => {
+    expect(extractWords('')).toEqual([]);
+  });
+
   it('field equals string (plain field definition)', () => {
     expect(extractWords("his_name = 'Manni'")).toEqual([
       { type: WordType.Field, value: 'his_name' },

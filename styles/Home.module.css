@@ -80,7 +80,7 @@
   background: #fafafa;
   border-radius: 5px;
   padding: 0.75rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
 }
@@ -107,33 +107,3 @@
 }
 
 .githubCorner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.githubCorner:hover .octo-arm{animation:none}.githubCorner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
-
-.install {
-  position: relative;
-  cursor: pointer;
-  border: 1px dotted gray;
-  border-radius: 10px;
-  padding: 6px 34px 10px 14px;
-}
-
-.install:hover {
-  opacity: 0.8;
-}
-
-.install:active {
-  text-decoration: underline;
-}
-
-.install code {
-  font-size: 14px;
-}
-
-.copyBtn {
-  height: 14px;
-  opacity: 0.8;
-  margin-left: 8px;
-  position: absolute;
-  top: 10px;
-}
-
-

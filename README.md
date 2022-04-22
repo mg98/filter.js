@@ -24,7 +24,7 @@
 <hr>
 
 _condition.js_ is a lightweight JavaScript library that enables you to use a comprehensible string syntax to run complex filter operations on a set of JSONs (or only one for that matter).
-The syntax is strongly inspired by the syntax for the expression of conditions in SQL and is meant to be simple and intuitive, even for non-technical people.
+The syntax is strongly inspired by the syntax for the expression of conditions in SQL and is meant to be simple and intuitive, even for non-technical people. [See a demo!](https://condition.js.org)
 
 ## Install
 
