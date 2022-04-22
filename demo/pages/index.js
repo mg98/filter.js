@@ -39,7 +39,7 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>condition.js - Query JSONs using SQL-like syntax!</title>
-        <meta name="description" content="This JS library that enables you to formulate complex conditions in a convenient string syntax which can than be matched with objects and further query a JSON array." />
+        <meta name="description" content="This JS library that enables you to formulate complex conditions in a convenient string syntax which can then be matched with objects and further query a JSON array." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -53,7 +53,7 @@ export default function Home() {
           <img src='https://badge.fury.io/js/@mg98%2Fcondition-js.svg' alt='npm version' height='18' width='116' />
         </a>
 
-        <p className={styles.description}>This JS library that enables you to formulate complex conditions in a convenient string syntax which can than be matched with objects and further query a JSON array. 
+        <p className={styles.description}>This JS library enables you to formulate complex conditions in a convenient string syntax which can then be matched with objects and further query a JSON array. 
           Give it a try!</p>
 
         <p className={styles.install} title='Click to copy' onClick={CopyCommand()}>
