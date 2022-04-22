@@ -1,6 +1,6 @@
 {
   "name": "@mg98/condition-js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Filter JSONs using SQL-like conditional expression syntax!",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
@@ -12,7 +12,7 @@
   "scripts": {
     "build": "npx tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "test": "jest",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "format": "prettier --write \"src/**/*.{ts,js}\"",
     "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
@@ -25,8 +25,8 @@
     "url": "git+https://github.com/mg98/condition-js.git"
   },
   "publishConfig": {
-      "name": "@mg98/condition-js",
-      "registry": "https://registry.npmjs.org"
+    "name": "@mg98/condition-js",
+    "registry": "https://registry.npmjs.org"
   },
   "keywords": [
     "sql",

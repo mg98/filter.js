@@ -2,7 +2,7 @@ import { Value, Word, WordType } from './types';
 
 // case insensitive implementation of Array.includes
 export function arrIncludes(arr: string[], v: string): boolean {
-  for (let val of arr) {
+  for (const val of arr) {
     if (val.toUpperCase() === v.toUpperCase()) return true;
   }
   return false;

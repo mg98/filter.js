@@ -27,7 +27,7 @@ jobs:
       - name: Add .nojekyll file
         run: touch ./out/.nojekyll
       - name: Add CNAME
-        run: echo "condition.js.org" > demo/out/CNAME
+        run: echo "condition.js.org" > CNAME
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
