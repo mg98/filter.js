@@ -1,106 +1,34 @@
-<h1 align="center">condition.js</h1>
-<p align="center">
-    Filter JSONs using SQL-like string syntax!
-</p>
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-<p align="center">
-  <a href="https://github.com/mg98/condition-js/actions/workflows/test.yml">
-    <img src="https://github.com/mg98/condition-js/actions/workflows/test.yml/badge.svg">
-  </a>
-  <a href="https://codecov.io/gh/mg98/condition-js">
-    <img src="https://codecov.io/gh/mg98/condition-js/branch/main/graph/badge.svg?token=RNG38NX4WY">
-  </a>
-  <a href="https://deepscan.io/dashboard#view=project&tid=17510&pid=20859&bid=581033">
-    <img src="https://deepscan.io/api/teams/17510/projects/20859/branches/581033/badge/grade.svg">
-  </a>
-  <a href="https://www.npmjs.com/package/@mg98/condition-js">
-    <img alt="npm (scoped)" src="https://img.shields.io/npm/v/@mg98/condition-js">
-  </a>
-  <a href="./LICENSE">
-    <img src="https://img.shields.io/github/license/mg98/condition-js">
-  </a>
-</p>
+## Getting Started
 
-<hr>
+First, run the development server:
 
-_condition.js_ is a lightweight JavaScript library that enables you to use a comprehensible string syntax to run complex filter operations on a set of JSONs (or only one for that matter).
-The syntax is strongly inspired by the syntax for the expression of conditions in SQL and is meant to be simple and intuitive, even for non-technical people.
-
-## Install
-
-```
-npm i @mg98/condition-js
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
-## Example
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```js
-import Condition from 'condition-js';
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-const clients = [
-    {
-        name: 'Batu',
-        age: 17,
-        country: 'Turkey'
-    },
-    {
-        name: 'Hai Dang',
-        age: 24,
-        country: 'Vietnam'
-    },
-    {
-        name: 'Miles',
-        age: 16,
-        country: 'USA'
-    },
-    {
-        name: 'Philipp',
-        age: 58,
-        country: 'Germany'
-    }
-]
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-const alcoholClients = data.filter(client => Condition.match(client, 
-  "(age >= 18 and country in ('Germany', 'Turkey', 'Vietnam') or age >= 21 and country = 'USA') and country != 'Arabia'"
-));
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-console.log(alcoholClients);
-// [
-//     {
-//         name: 'Hai Dang',
-//         age: 24,
-//         country: 'Vietnam'
-//     },
-//     {
-//         name: 'Philipp',
-//         age: 58,
-//         country: 'Germany'
-//     }
-// ]
-```
+## Learn More
 
-## Features
+To learn more about Next.js, take a look at the following resources:
 
-The goal of _condition.js_ is to create a language that is not only a powerful tool, but also a convenient and fault-tolerant one.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-✅ Basic comparison operators `=`, `!=`, `>`, `<`, `>=`, `<=`
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-✅ Operators `in` and `not in` in combination with array values (`('Apple', 'Peach', 'Banana')`)
+## Deploy on Vercel
 
-✅ Supporting value types string and number (including floating values)
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-✅ Logical operators `and` and `or` to combine expressions
-
-✅ Deep property access (e.g. `address.street = 'Elm Str'`)
-
-✅ Nested expressions using parantheses
-
-**Not yet supported...**
-
-❌ Boolean type
-
-❌ Symbol to escape character `'` in value definition
-
-❌ Support for `"` as alternative value quotation marks
-
-❌ Narrow typing (e.g. `a>3 and b!='hello'`)
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

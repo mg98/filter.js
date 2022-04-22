@@ -1,51 +1,24 @@
 {
-  "name": "@mg98/condition-js",
-  "version": "0.0.2",
-  "description": "Filter JSONs using SQL-like conditional expression syntax!",
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
-  "types": "lib/cjs/index.d.ts",
-  "files": [
-    "lib/"
-  ],
-  "sideEffects": false,
+  "name": "condition-js-pages",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "build": "npx tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
-    "test": "jest",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "dev": "next dev",
+    "build": "node generate-sample.js && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mg98/condition-js.git"
+  "dependencies": {
+    "@mg98/condition-js": "^0.0.2",
+    "next": "12.1.5",
+    "react": "18.0.0",
+    "react-dom": "18.0.0"
   },
-  "publishConfig": {
-      "name": "@mg98/condition-js",
-      "registry": "https://registry.npmjs.org"
-  },
-  "keywords": [
-    "sql",
-    "json"
-  ],
-  "author": "Marcel Gregoriadis <m.gregoriadis@gmail.com>",
-  "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.17.9",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-typescript": "^7.16.7",
-    "@types/jest": "^27.4.1",
-    "babel-jest": "^27.5.1",
-    "jest": "^27.5.1",
-    "prettier": "^2.6.2",
-    "ts-jest": "^27.1.4",
-    "ts-node": "^10.7.0",
-    "tslint": "^6.1.3",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^4.6.3"
+    "@faker-js/faker": "^6.1.2",
+    "@svgr/webpack": "^6.2.1",
+    "eslint": "8.13.0",
+    "eslint-config-next": "12.1.5"
   }
 }
