@@ -7,7 +7,7 @@
     "build": "node generate-sample.js && next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next export -o docs"
+    "export": "next export"
   },
   "dependencies": {
     "@mg98/condition-js": "^0.0.2",
