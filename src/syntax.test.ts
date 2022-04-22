@@ -26,6 +26,22 @@ describe('interpret syntax from input', () => {
     ]);
   });
 
+  it('field definition with numbers and no accents', () => {
+    expect(extractWords("Name1 = 'Manni'")).toEqual([
+      { type: WordType.Field, value: 'Name1' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: 'Manni' },
+    ]);
+  });
+
+  it('field definition with special characters', () => {
+    expect(extractWords("`$his-na0me` = 'Manni'")).toEqual([
+      { type: WordType.Field, value: '$his-na0me' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: 'Manni' },
+    ]);
+  });
+
   it('field equals number', () => {
     expect(extractWords('age = 21')).toEqual([
       { type: WordType.Field, value: 'age' },
@@ -147,7 +163,7 @@ describe('interpret syntax from input', () => {
   });
 
   it('array of strings', () => {
-    expect(extractWords("company in ( 'Apple', 'Google', 'Microsoft' ) ")).toEqual([
+    expect(extractWords("company in ( 'Apple','Google', 'Microsoft' ) ")).toEqual([
       { type: WordType.Field, value: 'company' },
       { type: WordType.Operator, value: 'in' },
       { type: WordType.Value, value: ['Apple', 'Google', 'Microsoft'] },
