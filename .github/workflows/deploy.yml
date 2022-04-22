@@ -26,8 +26,8 @@ jobs:
         run: npm run export
       - name: Add .nojekyll file
         run: touch ./out/.nojekyll
-      - name: Check...
-        run: ls -la ./out && pwd
+      - name: Add CNAME
+        run: echo "condition.js.org" > demo/out/CNAME
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:

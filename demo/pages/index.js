@@ -7,7 +7,7 @@ import { useState } from 'react'
 import GitHubSvg from '../public/github.svg'
 
 export default function Home() {
-  const [val, setVal ] = useState("Age > 18 and Age < 30 and Address.City not in ('Hoover', 'Asheville')")
+  const [val, setVal ] = useState("Age > 18 and Address.City not in ('Hoover', 'Asheville')")
   let error = null
   let data = []
   

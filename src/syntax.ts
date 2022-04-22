@@ -1,5 +1,18 @@
 import { Value, Word, WordType } from './types';
 
+// case insensitive implementation of Array.includes
+export function arrIncludes(arr: string[], v: string): boolean {
+  for (let val of arr) {
+    if (val.toUpperCase() === v.toUpperCase()) return true;
+  }
+  return false;
+}
+
+// case insensitive implementation of the === operator
+export function eq(a: string, b: string) {
+  return a.toUpperCase() === b.toUpperCase();
+}
+
 export function extractWords(conditionString: string): Word[] {
   const root: Word[] = [];
 
@@ -84,7 +97,7 @@ export function extractWords(conditionString: string): Word[] {
       if (
         lastWord.type === WordType.Operator &&
         lastWord.value &&
-        ['in', 'not in'].includes(lastWord.value.toString())
+        arrIncludes(['in', 'not in'], lastWord.value.toString())
       ) {
         arrayRec = true;
         words.push({
@@ -114,11 +127,11 @@ export function extractWords(conditionString: string): Word[] {
     if (s[i] === ' ' || (s[i] == ',' && arrayRec)) {
       if (plainFieldRec !== -1) {
         const value = s.slice(plainFieldRec, i);
-        if (['not', 'in', 'and', 'or'].includes(value)) {
-          if (value === 'in' && lastWord.type === WordType.Operator && lastWord.value === 'not') {
+        if (arrIncludes(['not', 'in', 'and', 'or'], value)) {
+          if (eq(value, 'in') && lastWord.type === WordType.Operator && lastWord.value === 'not') {
             words[words.length - 1].value = 'not in';
           } else {
-            words.push({ type: WordType.Operator, value });
+            words.push({ type: WordType.Operator, value: value.toLowerCase() });
           }
         } else {
           words.push({ type: WordType.Field, value });

@@ -106,6 +106,22 @@ describe('interpret syntax from input', () => {
     ]);
   });
 
+  it('logical and/or case insentivie', () => {
+    expect(extractWords("a = 'ok' AnD b >= 3.3 Or b < 1")).toEqual([
+      { type: WordType.Field, value: 'a' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: 'ok' },
+      { type: WordType.Operator, value: 'and' },
+      { type: WordType.Field, value: 'b' },
+      { type: WordType.Operator, value: '>=' },
+      { type: WordType.Value, value: 3.3 },
+      { type: WordType.Operator, value: 'or' },
+      { type: WordType.Field, value: 'b' },
+      { type: WordType.Operator, value: '<' },
+      { type: WordType.Value, value: 1 },
+    ]);
+  });
+
   it('multiple logical connections', () => {
     expect(extractWords("name = 'Wolfram' and age >= 18 or age = 0")).toEqual([
       { type: WordType.Field, value: 'name' },
@@ -180,6 +196,14 @@ describe('interpret syntax from input', () => {
 
   it('"not in" operator', () => {
     expect(extractWords("x not in ('Apple' 3.141 'Banana' 8 200) ")).toEqual([
+      { type: WordType.Field, value: 'x' },
+      { type: WordType.Operator, value: 'not in' },
+      { type: WordType.Value, value: ['Apple', 3.141, 'Banana', 8, 200] },
+    ]);
+  });
+
+  it('"not in" operator case-insensitive', () => {
+    expect(extractWords("x NOT iN ('Apple' 3.141 'Banana' 8 200) ")).toEqual([
       { type: WordType.Field, value: 'x' },
       { type: WordType.Operator, value: 'not in' },
       { type: WordType.Value, value: ['Apple', 3.141, 'Banana', 8, 200] },
