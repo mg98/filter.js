@@ -1,7 +1,14 @@
-import { Word, WordType } from './types';
+import { ObjectKeyNotFound, Word, WordType } from './types';
 
-// application of generic operator on two generics
-function express(a: any, b: any, op: string): boolean {
+/**
+ * Expresses the relation of a to be using a generic operator.
+ * 
+ * @param a - Left-side value
+ * @param b - Right-side value
+ * @param op - Operator to apply
+ * @returns expressive value of a op b
+ */
+export function express(a: any, b: any, op: string): boolean {
   switch (op) {
     case '=':
       return a == b;
@@ -24,7 +31,13 @@ function express(a: any, b: any, op: string): boolean {
   }
 }
 
-// logical evaluation
+/**
+ * Performs propositional logic on a sequence of expressions.
+ * 
+ * @param expressions - Array of expressions
+ * @param logicalOps - Array of operators where the first item is the operation between the first and second item in expression and so forth
+ * @returns the result of the processing of all expressions
+ */
 export function evaluate(expressions: boolean[], logicalOps: string[]): boolean {
   if (expressions.length === 1) return expressions[0];
 
@@ -51,7 +64,17 @@ export function evaluate(expressions: boolean[], logicalOps: string[]): boolean 
   return expressions.length > 0 ? expressions[0] : true;
 }
 
-export function matchWords(record: Record<string, any>, words: Word[]): boolean {
+/**
+ * Check if object matches the rules formulated by the sequence of words.
+ * 
+ * @param obj - Object to validate
+ * @param words - Sequence of words to formulate the set of rules to apply
+ * @returns 
+ * 
+ * @throws {@link ObjectKeyNotFound}
+ * This exception is thrown when the field in a word was not found in the given object.
+ */
+export function matchWords(obj: Record<string, any>, words: Word[]): boolean {
   let field: string | undefined;
   let op: string | undefined;
   let value: string | undefined;
@@ -70,6 +93,7 @@ export function matchWords(record: Record<string, any>, words: Word[]): boolean 
         field = word.value?.toString();
         break;
       case WordType.Operator:
+      case WordType.LogicalOperator:
         op = word.value?.toString();
         break;
       case WordType.Value:
@@ -80,7 +104,7 @@ export function matchWords(record: Record<string, any>, words: Word[]): boolean 
     if (word.type === WordType.Group) {
       const groupWords = word.words;
       if (!groupWords) throw new Error('internal error');
-      expressions.push(matchWords(record, groupWords));
+      expressions.push(matchWords(obj, groupWords));
       resetExprVars();
       continue;
     }
@@ -92,13 +116,13 @@ export function matchWords(record: Record<string, any>, words: Word[]): boolean 
     }
 
     if (field && op && value) {
-      let recordValue = record;
+      let objValue = obj;
       for (const subfield of field.split('.')) {
-        if (!recordValue.hasOwnProperty(subfield)) throw new Error(`object has no key \`${field}\``);
-        recordValue = recordValue[subfield];
+        if (!objValue.hasOwnProperty(subfield)) throw new ObjectKeyNotFound(`object has no key \`${field}\``, field);
+        objValue = objValue[subfield];
       }
 
-      expressions.push(express(recordValue, value, op));
+      expressions.push(express(objValue, value, op));
       resetExprVars();
     }
   }

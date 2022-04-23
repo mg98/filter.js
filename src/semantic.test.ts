@@ -1,4 +1,4 @@
-import { evaluate, matchWords } from './semantic';
+import { evaluate, express, matchWords } from './semantic';
 import { WordType } from './types';
 
 describe('logical evaluation', () => {
@@ -30,7 +30,7 @@ describe('logical evaluation', () => {
   });
 });
 
-describe('interpret semantics', () => {
+describe('match words', () => {
   it('empty query', () => {
     expect(matchWords({ a: 3, b: 'hi' }, [])).toBeTruthy();
   });
@@ -58,7 +58,7 @@ describe('interpret semantics', () => {
         { type: WordType.Field, value: 'a' },
         { type: WordType.Operator, value: '=' },
         { type: WordType.Value, value: '5' },
-        { type: WordType.Operator, value: 'and' },
+        { type: WordType.LogicalOperator, value: 'and' },
         { type: WordType.Field, value: 'b' },
         { type: WordType.Operator, value: '>' },
         { type: WordType.Value, value: '0' },
@@ -69,7 +69,7 @@ describe('interpret semantics', () => {
         { type: WordType.Field, value: 'a' },
         { type: WordType.Operator, value: '=' },
         { type: WordType.Value, value: '5' },
-        { type: WordType.Operator, value: 'and' },
+        { type: WordType.LogicalOperator, value: 'and' },
         { type: WordType.Field, value: 'b' },
         { type: WordType.Operator, value: '>' },
         { type: WordType.Value, value: '0' },
@@ -83,14 +83,14 @@ describe('interpret semantics', () => {
         { type: WordType.Field, value: 'a' },
         { type: WordType.Operator, value: '>=' },
         { type: WordType.Value, value: '5' },
-        { type: WordType.Operator, value: 'and' },
+        { type: WordType.LogicalOperator, value: 'and' },
         {
           type: WordType.Group,
           words: [
             { type: WordType.Field, value: 'b' },
             { type: WordType.Operator, value: '>' },
             { type: WordType.Value, value: '10' },
-            { type: WordType.Operator, value: 'or' },
+            { type: WordType.LogicalOperator, value: 'or' },
             { type: WordType.Field, value: 'c' },
             { type: WordType.Operator, value: '=' },
             { type: WordType.Value, value: 'jeff' },
@@ -104,14 +104,14 @@ describe('interpret semantics', () => {
         { type: WordType.Field, value: 'a' },
         { type: WordType.Operator, value: '>=' },
         { type: WordType.Value, value: '5' },
-        { type: WordType.Operator, value: 'and' },
+        { type: WordType.LogicalOperator, value: 'and' },
         {
           type: WordType.Group,
           words: [
             { type: WordType.Field, value: 'b' },
             { type: WordType.Operator, value: '>' },
             { type: WordType.Value, value: '10' },
-            { type: WordType.Operator, value: 'and' },
+            { type: WordType.LogicalOperator, value: 'and' },
             { type: WordType.Field, value: 'c' },
             { type: WordType.Operator, value: '=' },
             { type: WordType.Value, value: 'jeff' },
@@ -119,5 +119,83 @@ describe('interpret semantics', () => {
         },
       ]),
     ).toBeFalsy();
+  });
+});
+
+describe('express', () => {
+  it('equal', () => {
+    expect(express(5, 5, '=')).toBeTruthy();
+    expect(express(5, 8, '=')).toBeFalsy();
+    expect(express('alpha', 'alpha', '=')).toBeTruthy();
+    expect(express('alpha', 'alpha1', '=')).toBeFalsy();
+  });
+
+  it('not equal', () => {
+    expect(express(5, 5, '!=')).toBeFalsy();
+    expect(express(5, 8, '!=')).toBeTruthy();
+    expect(express('alpha', 'alpha', '!=')).toBeFalsy();
+    expect(express('alpha', 'alpha1', '!=')).toBeTruthy();
+  });
+
+  it('greater than', () => {
+    expect(express(8, 5, '>')).toBeTruthy();
+    expect(express(5, 8, '>')).toBeFalsy();
+    expect(express(5, 5, '>')).toBeFalsy();
+    expect(express('alpha', 'alpha', '>')).toBeFalsy();
+    expect(express('beta', 'alpha', '>')).toBeTruthy();
+    expect(express('alpha', 'beta', '>')).toBeFalsy();
+  });
+
+  it('greater than or equal', () => {
+    expect(express(8, 5, '>=')).toBeTruthy();
+    expect(express(5, 8, '>=')).toBeFalsy();
+    expect(express(5, 5, '>=')).toBeTruthy();
+    expect(express('alpha', 'alpha', '>=')).toBeTruthy();
+    expect(express('beta', 'alpha', '>=')).toBeTruthy();
+    expect(express('alpha', 'beta', '>=')).toBeFalsy();
+  });
+
+  it('less than', () => {
+    expect(express(8, 5, '<')).toBeFalsy();
+    expect(express(5, 8, '<')).toBeTruthy();
+    expect(express(5, 5, '<')).toBeFalsy();
+    expect(express('alpha', 'alpha', '<')).toBeFalsy();
+    expect(express('beta', 'alpha', '<')).toBeFalsy();
+    expect(express('alpha', 'beta', '<')).toBeTruthy();
+  });
+
+  it('less than or equal', () => {
+    expect(express(8, 5, '<=')).toBeFalsy();
+    expect(express(5, 8, '<=')).toBeTruthy();
+    expect(express(5, 5, '<=')).toBeTruthy();
+    expect(express('alpha', 'alpha', '<=')).toBeTruthy();
+    expect(express('beta', 'alpha', '<=')).toBeFalsy();
+    expect(express('alpha', 'beta', '<=')).toBeTruthy();
+  });
+
+  it('in array', () => {
+    expect(express(5, [1,2,3,4,5], 'in')).toBeTruthy();
+    expect(express(5, [1,2,3,4], 'in')).toBeFalsy();
+    expect(express('ok', ['ah', 'okay'], 'in')).toBeFalsy();
+    expect(express('ok', ['ah', 'ok', 'fine'], 'in')).toBeTruthy();
+    expect(express('ok', [], 'in')).toBeFalsy();
+  });
+
+  it('in string', () => {
+    expect(express('you', 'How are you?', 'in')).toBeTruthy();
+    expect(express('you', 'How are they/them?', 'in')).toBeFalsy();
+  });
+
+  it('not in array', () => {
+    expect(express(5, [1,2,3,4,5], 'not in')).toBeFalsy();
+    expect(express(5, [1,2,3,4], 'not in')).toBeTruthy();
+    expect(express('ok', ['ah', 'okay'], 'not in')).toBeTruthy();
+    expect(express('ok', ['ah', 'ok', 'fine'], 'not in')).toBeFalsy();
+    expect(express('ok', [], 'not in')).toBeTruthy();
+  });
+
+  it('not in string', () => {
+    expect(express('you', 'How are you?', 'not in')).toBeFalsy();
+    expect(express('you', 'How are they/them?', 'not in')).toBeTruthy();
   });
 });
