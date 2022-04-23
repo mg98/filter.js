@@ -19,13 +19,15 @@ jobs:
         with:
           node-version: 14.x
       - name: Install packages
-        run: npm ci
+        run: npm ci && cd .. && npm ci
       - name: Build project
         run: npm run build
       - name: Export static files
         run: npm run export
       - name: Add .nojekyll file
         run: touch ./out/.nojekyll
+      - name: Generate docs
+        run: npm run docs -- -out ./out/docs
       - name: Add CNAME
         run: echo "condition.js.org" > ./out/CNAME
       - name: Deploy

@@ -2,7 +2,7 @@ import { Value, Word, WordType } from './types';
 
 /**
  * Case insensitive implementation of Array.includes.
- * 
+ *
  * @param arr - Accepted values
  * @param v - Searched string
  * @returns if a includes b
@@ -16,7 +16,7 @@ export function arrIncludes(arr: string[], v: string): boolean {
 
 /**
  * Case insensitive implementation of the === operator.
- * 
+ *
  * @param a - First value
  * @param b - Second value
  * @returns if a and b are equal
@@ -27,7 +27,7 @@ export function eq(a: string, b: string) {
 
 /**
  * Parse words from a query string.
- * 
+ *
  * @param query - Expression of conditions
  * @returns the ordered sequence of words
  *
@@ -71,45 +71,58 @@ export function parseWords(query: string): Word[] {
     }
 
     if (s[i] === '=') {
-      if (accentFieldRec !== -1 || plainFieldRec !== -1) throw new SyntaxError('illegal character inside field definition');
+      if (accentFieldRec !== -1 || plainFieldRec !== -1)
+        throw new SyntaxError('illegal character inside field definition');
 
       if (lessThanRec) {
-        words.push(new Word({
-          type: WordType.Operator,
-          value: '<=',
-        }));
+        words.push(
+          new Word({
+            type: WordType.Operator,
+            value: '<=',
+          }),
+        );
         lessThanRec = false;
       } else if (greaterThanRec) {
-        words.push(new Word({
-          type: WordType.Operator,
-          value: '>=',
-        }));
+        words.push(
+          new Word({
+            type: WordType.Operator,
+            value: '>=',
+          }),
+        );
         greaterThanRec = false;
       } else if (notRec) {
-        words.push(new Word({
-          type: WordType.Operator,
-          value: '!=',
-        }));
+        words.push(
+          new Word({
+            type: WordType.Operator,
+            value: '!=',
+          }),
+        );
         notRec = false;
       } else {
-        words.push(new Word({
-          type: WordType.Operator,
-          value: '=',
-        }));
+        words.push(
+          new Word({
+            type: WordType.Operator,
+            value: '=',
+          }),
+        );
       }
       continue;
     } else {
       if (lessThanRec) {
-        words.push(new Word({
-          type: WordType.Operator,
-          value: '<',
-        }));
+        words.push(
+          new Word({
+            type: WordType.Operator,
+            value: '<',
+          }),
+        );
         lessThanRec = false;
       } else if (greaterThanRec) {
-        words.push(new Word({
-          type: WordType.Operator,
-          value: '>',
-        }));
+        words.push(
+          new Word({
+            type: WordType.Operator,
+            value: '>',
+          }),
+        );
         greaterThanRec = false;
       }
     }
@@ -121,16 +134,20 @@ export function parseWords(query: string): Word[] {
         arrIncludes(['in', 'not in'], lastWord.value.toString())
       ) {
         arrayRec = true;
-        words.push(new Word({
-          type: WordType.Value,
-          value: [],
-        }));
+        words.push(
+          new Word({
+            type: WordType.Value,
+            value: [],
+          }),
+        );
       } else {
         groupDepth++;
-        words.push(new Word({
-          type: WordType.Group,
-          words: [],
-        }));
+        words.push(
+          new Word({
+            type: WordType.Group,
+            words: [],
+          }),
+        );
       }
       continue;
     }
@@ -173,17 +190,20 @@ export function parseWords(query: string): Word[] {
       if (accentFieldRec === -1) {
         accentFieldRec = i;
       } else {
-        words.push(new Word({
-          type: WordType.Field,
-          value: s.slice(accentFieldRec + 1, i),
-        }));
+        words.push(
+          new Word({
+            type: WordType.Field,
+            value: s.slice(accentFieldRec + 1, i),
+          }),
+        );
         accentFieldRec = -1;
       }
       continue;
     }
 
     if (s[i] === "'") {
-      if (accentFieldRec !== -1 || plainFieldRec !== -1) throw new SyntaxError('illegal character inside field definition');
+      if (accentFieldRec !== -1 || plainFieldRec !== -1)
+        throw new SyntaxError('illegal character inside field definition');
 
       if (stringValueRec === -1) {
         stringValueRec = i;

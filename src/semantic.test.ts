@@ -174,8 +174,8 @@ describe('express', () => {
   });
 
   it('in array', () => {
-    expect(express(5, [1,2,3,4,5], 'in')).toBeTruthy();
-    expect(express(5, [1,2,3,4], 'in')).toBeFalsy();
+    expect(express(5, [1, 2, 3, 4, 5], 'in')).toBeTruthy();
+    expect(express(5, [1, 2, 3, 4], 'in')).toBeFalsy();
     expect(express('ok', ['ah', 'okay'], 'in')).toBeFalsy();
     expect(express('ok', ['ah', 'ok', 'fine'], 'in')).toBeTruthy();
     expect(express('ok', [], 'in')).toBeFalsy();
@@ -187,8 +187,8 @@ describe('express', () => {
   });
 
   it('not in array', () => {
-    expect(express(5, [1,2,3,4,5], 'not in')).toBeFalsy();
-    expect(express(5, [1,2,3,4], 'not in')).toBeTruthy();
+    expect(express(5, [1, 2, 3, 4, 5], 'not in')).toBeFalsy();
+    expect(express(5, [1, 2, 3, 4], 'not in')).toBeTruthy();
     expect(express('ok', ['ah', 'okay'], 'not in')).toBeTruthy();
     expect(express('ok', ['ah', 'ok', 'fine'], 'not in')).toBeFalsy();
     expect(express('ok', [], 'not in')).toBeTruthy();

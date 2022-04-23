@@ -2,6 +2,7 @@
     "extends": ["tslint:recommended", "tslint-config-prettier"],
     "rules": {
         "array-type": false,
-        "triple-equals": false
+        "triple-equals": false,
+        "max-classes-per-file": false
     }
  }

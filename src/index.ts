@@ -1,7 +1,7 @@
 import { validateGrammer } from './grammar';
 import { matchWords } from './semantic';
 import { parseWords } from './syntax';
-import { SyntaxError, GrammarError, ObjectKeyNotFound } from './types';
+import { SyntaxError, GrammarError, ObjectKeyNotFoundError } from './types';
 
 /**
  * Matches an object with the conditions expressed in the query.
@@ -12,11 +12,11 @@ import { SyntaxError, GrammarError, ObjectKeyNotFound } from './types';
  *
  * @throws {@link SyntaxError}
  * This exception is thrown when there was an error parsing the query.
- * 
+ *
  * @throws {@link GrammarError}
  * This exception is thrown when the sequence of expressions is invalid.
- * 
- * @throws {@link ObjectKeyNotFound}
+ *
+ * @throws {@link ObjectKeyNotFoundError}
  * This exception is thrown when the fields targetted in the query were not found in the given object.
  */
 export function match(obj: object, query: string): boolean {

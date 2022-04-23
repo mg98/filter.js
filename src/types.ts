@@ -53,14 +53,14 @@ export class Word {
   words?: Word[];
 
   constructor(props: Word) {
-      this.type = props.type;
-      this.value = props.value;
-      this.words = props.words;
+    this.type = props.type;
+    this.value = props.value;
+    this.words = props.words;
   }
 
   /**
    * Get string representation of word as it would look in a query string.
-   * 
+   *
    * @example
    * Here is an example with word type `WordType.Value`.
    * ```
@@ -68,7 +68,7 @@ export class Word {
    * // Prints "(4, 8, 9)"
    * console.log(word.toString());
    * ```
-   * 
+   *
    * @example
    * Here is an example with word type `WordType.Operator`.
    * ```
@@ -76,7 +76,7 @@ export class Word {
    * // Prints "and"
    * console.log(word.toString());
    * ```
-   * 
+   *
    * @returns string representation
    */
   toString(): string {
@@ -89,7 +89,7 @@ export class Word {
         if (this.value.length > 0 && typeof this.value[0] === 'string') {
           return `('${this.value.join("', '")}')`;
         } else {
-          return `(${this.value.join(", ")})`;
+          return `(${this.value.join(', ')})`;
         }
       }
       // primitive value
@@ -105,34 +105,33 @@ export class Word {
       if (this.words.length === 0) return '()';
       let res = '(';
       for (const word of this.words) {
-        res += word.toString() + ' '
+        res += word.toString() + ' ';
       }
       res = res.slice(0, -1) + ')';
       return res;
     }
 
     throw new Error('word is invalid');
-  };
-};
+  }
+}
 
 /**
  * SyntaxError is thrown when a query string could not be parsed.
  */
 export class SyntaxError extends Error {
   constructor(msg: string) {
-      super(msg);
-      Object.setPrototypeOf(this, GrammarError.prototype);
+    super(msg);
+    Object.setPrototypeOf(this, GrammarError.prototype);
   }
 }
-
 
 /**
  * GrammarError is thrown when the order of words is invalid or the sequence is incomplete.
  */
 export class GrammarError extends Error {
   constructor(msg: string) {
-      super(msg);
-      Object.setPrototypeOf(this, GrammarError.prototype);
+    super(msg);
+    Object.setPrototypeOf(this, GrammarError.prototype);
   }
 }
 
@@ -146,8 +145,8 @@ export class ObjectKeyNotFoundError extends Error {
   readonly key: string;
 
   constructor(msg: string, key: string) {
-      super(msg);
-      this.key = key;
-      Object.setPrototypeOf(this, GrammarError.prototype);
+    super(msg);
+    this.key = key;
+    Object.setPrototypeOf(this, GrammarError.prototype);
   }
 }

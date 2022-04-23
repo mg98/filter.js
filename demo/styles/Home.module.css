@@ -45,6 +45,11 @@
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  color: #0645ad;
+}
+
+.footer a:hover {
+  text-decoration: underline;
 }
 
 .title a {

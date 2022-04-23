@@ -1,8 +1,8 @@
-import { ObjectKeyNotFound, Word, WordType } from './types';
+import { ObjectKeyNotFoundError, Word, WordType } from './types';
 
 /**
  * Expresses the relation of a to be using a generic operator.
- * 
+ *
  * @param a - Left-side value
  * @param b - Right-side value
  * @param op - Operator to apply
@@ -33,7 +33,7 @@ export function express(a: any, b: any, op: string): boolean {
 
 /**
  * Performs propositional logic on a sequence of expressions.
- * 
+ *
  * @param expressions - Array of expressions
  * @param logicalOps - Array of operators where the first item is the operation between the first and second item in expression and so forth
  * @returns the result of the processing of all expressions
@@ -66,11 +66,11 @@ export function evaluate(expressions: boolean[], logicalOps: string[]): boolean 
 
 /**
  * Check if object matches the rules formulated by the sequence of words.
- * 
+ *
  * @param obj - Object to validate
  * @param words - Sequence of words to formulate the set of rules to apply
- * @returns 
- * 
+ * @returns
+ *
  * @throws {@link ObjectKeyNotFound}
  * This exception is thrown when the field in a word was not found in the given object.
  */
@@ -118,7 +118,8 @@ export function matchWords(obj: Record<string, any>, words: Word[]): boolean {
     if (field && op && value) {
       let objValue = obj;
       for (const subfield of field.split('.')) {
-        if (!objValue.hasOwnProperty(subfield)) throw new ObjectKeyNotFound(`object has no key \`${field}\``, field);
+        if (!objValue.hasOwnProperty(subfield))
+          throw new ObjectKeyNotFoundError(`object has no key \`${field}\``, field);
         objValue = objValue[subfield];
       }
 
