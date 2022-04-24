@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 14.x
       - name: Install packages
-        run: npm ci && cd .. && npm ci
+        run: npm ci && npm update @mg98/condition-js && cd .. && npm ci
       - name: Build project
         run: npm run build
       - name: Export static files
