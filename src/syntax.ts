@@ -52,7 +52,7 @@ export function parseWords(query: string): Word[] {
     let words = root;
     for (let depth = 0; depth < groupDepth; depth++) {
       if (words[words.length - 1].type !== WordType.Group || !Array.isArray(words[words.length - 1].words))
-        throw new SyntaxError('internal error');
+        throw new Error('internal error');
       words = words[words.length - 1].words || [];
     }
 
@@ -249,7 +249,7 @@ export function parseWords(query: string): Word[] {
     throw new SyntaxError(`illegal character ${s[i]}`, i);
   }
 
-  if (stringValueRec !== -1 || accentFieldRec !== -1) throw new SyntaxError('quotation mark expected', i);
+  if (stringValueRec !== -1 || accentFieldRec !== -1) throw new SyntaxError('quotation mark expected', s.length);
 
   return root;
 }

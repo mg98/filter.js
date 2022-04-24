@@ -147,7 +147,7 @@ export class ObjectKeyNotFoundError extends Error {
    */
   readonly key: string;
 
-  constructor(msg: string, key: string) {
+  constructor(key: string) {
     super(`object has no key \`${key}\``);
     this.key = key;
     Object.setPrototypeOf(this, ObjectKeyNotFoundError.prototype);

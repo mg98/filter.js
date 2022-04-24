@@ -3,7 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import DataTable from './components/dataTable'
 import sample from '../sample.json'
-import { match } from '@mg98/condition-js'
+import { matchCondition } from '@mg98/condition-js'
 import { useState } from 'react'
 import GitHubSvg from '../public/github.svg'
 import CopySvg from '../public/copy.svg'
@@ -15,7 +15,7 @@ export default function Home() {
   
   const updateData = () => {
     try {
-      data = sample.filter(el => match(el, val))
+      data = sample.filter(el => matchCondition(el, val))
       error = null
     } catch (e) {
       error = e;
@@ -62,7 +62,7 @@ export default function Home() {
         </p>
 
         <p className={styles.description}>
-          <code className={styles.code}>Condition.match(data, &quot;
+          <code className={styles.code}>matchCondition(data, &quot;
           <input value={val} onChange={handleChange} className={styles.query} />
           &quot;)</code>
         </p>

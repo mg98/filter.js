@@ -118,8 +118,7 @@ export function matchWords(obj: Record<string, any>, words: Word[]): boolean {
     if (field && op && value) {
       let objValue = obj;
       for (const subfield of field.split('.')) {
-        if (!objValue.hasOwnProperty(subfield))
-          throw new ObjectKeyNotFoundError(`object has no key \`${field}\``, field);
+        if (!objValue.hasOwnProperty(subfield)) throw new ObjectKeyNotFoundError(field);
         objValue = objValue[subfield];
       }
 
