@@ -119,9 +119,12 @@ export class Word {
  * SyntaxError is thrown when a query string could not be parsed.
  */
 export class SyntaxError extends Error {
-  constructor(msg: string) {
-    super(msg);
-    Object.setPrototypeOf(this, GrammarError.prototype);
+  readonly index: number;
+
+  constructor(msg: string, index: number) {
+    super(`syntax error at position ${index}: ${msg}`);
+    this.index = index;
+    Object.setPrototypeOf(this, SyntaxError.prototype);
   }
 }
 
@@ -145,8 +148,8 @@ export class ObjectKeyNotFoundError extends Error {
   readonly key: string;
 
   constructor(msg: string, key: string) {
-    super(msg);
+    super(`object has no key \`${key}\``);
     this.key = key;
-    Object.setPrototypeOf(this, GrammarError.prototype);
+    Object.setPrototypeOf(this, ObjectKeyNotFoundError.prototype);
   }
 }

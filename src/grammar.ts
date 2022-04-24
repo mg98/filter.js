@@ -27,6 +27,7 @@ export function validateGrammer(words: Word[]): boolean {
         break;
       case WordType.LogicalOperator:
         expectedTypes = [WordType.Field, WordType.Group];
+        break;
       case WordType.Value:
         expectedTypes = [WordType.LogicalOperator, WordType.Group];
         break;

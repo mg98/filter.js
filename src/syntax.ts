@@ -1,4 +1,4 @@
-import { Value, Word, WordType } from './types';
+import { SyntaxError, Value, Word, WordType } from './types';
 
 /**
  * Case insensitive implementation of Array.includes.
@@ -56,13 +56,13 @@ export function parseWords(query: string): Word[] {
       words = words[words.length - 1].words || [];
     }
 
-    const lastWord = words[words.length - 1];
+    const lastWord = words[words.length - 1] || new Word({ type: WordType.LogicalOperator });
 
     // Convenience function to push new values.
     // Will either add it as a new word or append it the array value of the previous word.
     function pushValue(value: Value) {
       if (arrayRec) {
-        if (!Array.isArray(lastWord.value)) throw new SyntaxError('internal error');
+        if (!Array.isArray(lastWord.value)) throw new Error('internal error');
         lastWord.value.push(typeof value === 'number' ? value : value.toString());
         lastWord.value = lastWord.value;
       } else {
@@ -72,7 +72,7 @@ export function parseWords(query: string): Word[] {
 
     if (s[i] === '=') {
       if (accentFieldRec !== -1 || plainFieldRec !== -1)
-        throw new SyntaxError('illegal character inside field definition');
+        throw new SyntaxError('illegal character inside field definition', i);
 
       if (lessThanRec) {
         words.push(
@@ -184,8 +184,8 @@ export function parseWords(query: string): Word[] {
     }
 
     if (s[i] === '`') {
-      if (stringValueRec !== -1) throw new SyntaxError('illegal character inside value definition');
-      if (plainFieldRec !== -1) throw new SyntaxError('illegal character inside field definition');
+      if (stringValueRec !== -1) throw new SyntaxError('illegal character inside value definition', i);
+      if (plainFieldRec !== -1) throw new SyntaxError('illegal character inside field definition', i);
 
       if (accentFieldRec === -1) {
         accentFieldRec = i;
@@ -203,7 +203,7 @@ export function parseWords(query: string): Word[] {
 
     if (s[i] === "'") {
       if (accentFieldRec !== -1 || plainFieldRec !== -1)
-        throw new SyntaxError('illegal character inside field definition');
+        throw new SyntaxError('illegal character inside field definition', i);
 
       if (stringValueRec === -1) {
         stringValueRec = i;
@@ -236,7 +236,7 @@ export function parseWords(query: string): Word[] {
 
     if (s[i].match(/[a-zA-Z0-9]|\_|\./)) {
       if (stringValueRec === -1 && accentFieldRec === -1 && plainFieldRec === -1) {
-        if (numericValueRec !== -1) throw new SyntaxError('illegal character inside value definition');
+        if (numericValueRec !== -1) throw new SyntaxError('illegal character inside value definition', i);
         plainFieldRec = i;
       }
       continue;
@@ -246,10 +246,10 @@ export function parseWords(query: string): Word[] {
       continue;
     }
 
-    throw new SyntaxError(`illegal character ${s[i]}.`);
+    throw new SyntaxError(`illegal character ${s[i]}`, i);
   }
 
-  if (stringValueRec !== -1 || accentFieldRec !== -1) throw new SyntaxError('quotation mark expected');
+  if (stringValueRec !== -1 || accentFieldRec !== -1) throw new SyntaxError('quotation mark expected', i);
 
   return root;
 }

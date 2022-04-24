@@ -1,6 +1,6 @@
 <h1 align="center">condition.js</h1>
 <p align="center">
-    Filter JSONs using SQL-like string syntax!
+    Filter JSONs using SQL-like syntax!
 </p>
 
 <p align="center">
@@ -14,7 +14,7 @@
     <img src="https://deepscan.io/api/teams/17510/projects/20859/branches/581033/badge/grade.svg">
   </a>
   <a href="https://www.npmjs.com/package/@mg98/condition-js">
-    <img alt="npm (scoped)" src="https://img.shields.io/npm/v/@mg98/condition-js">
+    <img src="https://img.shields.io/npm/v/@mg98/condition-js">
   </a>
   <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/mg98/condition-js">
@@ -35,7 +35,7 @@ npm i @mg98/condition-js
 ## Example
 
 ```js
-import Condition from 'condition-js';
+import { matchCondition } from 'condition-js';
 
 const clients = [
     {
@@ -60,7 +60,7 @@ const clients = [
     }
 ]
 
-const alcoholClients = data.filter(client => Condition.match(client, 
+const alcoholClients = data.filter(client => matchCondition(client, 
   "(age >= 18 and country in ('Germany', 'Turkey', 'Vietnam') or age >= 21 and country = 'USA') and country != 'Arabia'"
 ));
 
@@ -87,7 +87,9 @@ The goal of _condition.js_ is to create a language that is not only a powerful t
 
 ✅ Operators `in` and `not in` in combination with array values (`('Apple', 'Peach', 'Banana')`)
 
-✅ Supporting value types string and number (including floating values)
+✅ Supports value types string and number (including floating values)
+
+✅ Supports operations on arrays (e.g. `hobbies > 3` is valid if `hobbies` in an array of length > 3)
 
 ✅ Logical operators `and` and `or` to combine expressions
 
