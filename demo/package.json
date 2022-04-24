@@ -11,7 +11,7 @@
     "docs": "typedoc --entryPointStrategy expand --tsconfig ../tsconfig.json ../src"
   },
   "dependencies": {
-    "@mg98/condition-js": "latest",
+    "@mg98/condition-js": "^0.2.1",
     "next": "12.1.5",
     "react": "18.0.0",
     "react-dom": "18.0.0"
