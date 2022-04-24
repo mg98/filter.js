@@ -39,10 +39,23 @@ describe('interpret syntax from input', () => {
   });
 
   it('field definition with special characters', () => {
-    expect(parseWords("`$his-na0me` = 'Manni'")).toEqual([
-      { type: WordType.Field, value: '$his-na0me' },
+    expect(parseWords("`$his-na0m=e` = 'Manni'")).toEqual([
+      { type: WordType.Field, value: '$his-na0m=e' },
       { type: WordType.Operator, value: '=' },
       { type: WordType.Value, value: 'Manni' },
+    ]);
+  });
+
+  it('value definition with special characters', () => {
+    expect(parseWords("name = '=Manni'")).toEqual([
+      { type: WordType.Field, value: 'name' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: '=Manni' },
+    ]);
+    expect(parseWords("name = '=Manni<>'")).toEqual([
+      { type: WordType.Field, value: 'name' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: '=Manni<>' },
     ]);
   });
 
@@ -290,6 +303,24 @@ describe('interpret syntax from input', () => {
       { type: WordType.Field, value: 'a' },
       { type: WordType.Operator, value: '!=' },
       { type: WordType.Value, value: 0 },
+    ]);
+  });
+
+  it('narrow typing', () => {
+    expect(parseWords('a=1')).toEqual([
+      { type: WordType.Field, value: 'a' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: 1 },
+    ]);
+    expect(parseWords('`alpha`<10')).toEqual([
+      { type: WordType.Field, value: 'alpha' },
+      { type: WordType.Operator, value: '<' },
+      { type: WordType.Value, value: 10 },
+    ]);
+    expect(parseWords("name='Jeff'")).toEqual([
+      { type: WordType.Field, value: 'name' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: 'Jeff' },
     ]);
   });
 });

@@ -104,5 +104,3 @@ The goal of _condition.js_ is to create a language that is not only a powerful t
 ❌ Symbol to escape character `'` in value definition
 
 ❌ Support for `"` as alternative value quotation marks
-
-❌ Narrow typing (e.g. `a>3 and b!='hello'`)

@@ -70,9 +70,26 @@ export function parseWords(query: string): Word[] {
       }
     }
 
-    if (s[i] === '=') {
-      if (accentFieldRec !== -1 || plainFieldRec !== -1)
-        throw new SyntaxError('illegal character inside field definition', i);
+    if (s[i] === '=' && accentFieldRec === -1 && stringValueRec === -1) {
+      if (plainFieldRec !== -1) {
+        words.push(
+          new Word({
+            type: WordType.Field,
+            value: s.slice(plainFieldRec, i),
+          }),
+        );
+        plainFieldRec = -1;
+      }
+
+      if (numericValueRec !== -1) {
+        words.push(
+          new Word({
+            type: WordType.Value,
+            value: parseFloat(s.slice(numericValueRec, i)),
+          }),
+        );
+        numericValueRec = -1;
+      }
 
       if (lessThanRec) {
         words.push(
@@ -214,12 +231,32 @@ export function parseWords(query: string): Word[] {
       continue;
     }
 
-    if (s[i] === '<') {
+    if (s[i] === '<' && accentFieldRec === -1 && stringValueRec === -1) {
       lessThanRec = true;
       continue;
     }
 
-    if (s[i] === '>') {
+    if (s[i] === '>' && accentFieldRec === -1 && stringValueRec === -1) {
+      if (plainFieldRec !== -1) {
+        words.push(
+          new Word({
+            type: WordType.Field,
+            value: s.slice(plainFieldRec, i),
+          }),
+        );
+        plainFieldRec = -1;
+      }
+
+      if (numericValueRec !== -1) {
+        words.push(
+          new Word({
+            type: WordType.Value,
+            value: parseFloat(s.slice(numericValueRec, i)),
+          }),
+        );
+        numericValueRec = -1;
+      }
+
       greaterThanRec = true;
       continue;
     }
@@ -242,7 +279,7 @@ export function parseWords(query: string): Word[] {
       continue;
     }
 
-    if (accentFieldRec !== -1) {
+    if (accentFieldRec !== -1 || stringValueRec !== -1) {
       continue;
     }
 
