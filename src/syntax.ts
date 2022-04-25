@@ -39,7 +39,8 @@ export function parseWords(query: string): Word[] {
 
   let accentFieldRec = -1;
   let plainFieldRec = -1;
-  let stringValueRec = -1;
+  let sqStringValueRec = -1; // single quotes
+  let dqStringValueRec = -1; // double quotes
   let numericValueRec = -1;
   let notRec = false;
   let lessThanRec = false;
@@ -70,7 +71,7 @@ export function parseWords(query: string): Word[] {
       }
     }
 
-    if (s[i] === '=' && accentFieldRec === -1 && stringValueRec === -1) {
+    if (s[i] === '=' && accentFieldRec === -1 && sqStringValueRec === -1 && dqStringValueRec === -1) {
       if (plainFieldRec !== -1) {
         words.push(
           new Word({
@@ -200,8 +201,7 @@ export function parseWords(query: string): Word[] {
       continue;
     }
 
-    if (s[i] === '`') {
-      if (stringValueRec !== -1) throw new SyntaxError('illegal character inside value definition', i);
+    if (s[i] === '`' && sqStringValueRec === -1 && dqStringValueRec === -1) {
       if (plainFieldRec !== -1) throw new SyntaxError('illegal character inside field definition', i);
 
       if (accentFieldRec === -1) {
@@ -218,25 +218,38 @@ export function parseWords(query: string): Word[] {
       continue;
     }
 
-    if (s[i] === "'") {
+    if (s[i] === "'" && dqStringValueRec === -1) {
       if (accentFieldRec !== -1 || plainFieldRec !== -1)
         throw new SyntaxError('illegal character inside field definition', i);
 
-      if (stringValueRec === -1) {
-        stringValueRec = i;
+      if (sqStringValueRec === -1) {
+        sqStringValueRec = i;
       } else {
-        pushValue(s.slice(stringValueRec + 1, i));
-        stringValueRec = -1;
+        pushValue(s.slice(sqStringValueRec + 1, i));
+        sqStringValueRec = -1;
       }
       continue;
     }
 
-    if (s[i] === '<' && accentFieldRec === -1 && stringValueRec === -1) {
+    if (s[i] === '"' && sqStringValueRec === -1) {
+      if (accentFieldRec !== -1 || plainFieldRec !== -1)
+        throw new SyntaxError('illegal character inside field definition', i);
+
+      if (dqStringValueRec === -1) {
+        dqStringValueRec = i;
+      } else {
+        pushValue(s.slice(dqStringValueRec + 1, i));
+        dqStringValueRec = -1;
+      }
+      continue;
+    }
+
+    if (s[i] === '<' && accentFieldRec === -1 && sqStringValueRec === -1 && dqStringValueRec === -1) {
       lessThanRec = true;
       continue;
     }
 
-    if (s[i] === '>' && accentFieldRec === -1 && stringValueRec === -1) {
+    if (s[i] === '>' && accentFieldRec === -1 && sqStringValueRec === -1 && dqStringValueRec === -1) {
       if (plainFieldRec !== -1) {
         words.push(
           new Word({
@@ -266,27 +279,34 @@ export function parseWords(query: string): Word[] {
       continue;
     }
 
-    if (s[i].match(/[0-9]|\./) && stringValueRec === -1 && accentFieldRec === -1 && plainFieldRec === -1) {
+    if (
+      s[i].match(/[0-9]|\./) &&
+      sqStringValueRec === -1 &&
+      dqStringValueRec === -1 &&
+      accentFieldRec === -1 &&
+      plainFieldRec === -1
+    ) {
       if (numericValueRec === -1) numericValueRec = i;
       continue;
     }
 
     if (s[i].match(/[a-zA-Z0-9]|\_|\./)) {
-      if (stringValueRec === -1 && accentFieldRec === -1 && plainFieldRec === -1) {
+      if (sqStringValueRec === -1 && dqStringValueRec === -1 && accentFieldRec === -1 && plainFieldRec === -1) {
         if (numericValueRec !== -1) throw new SyntaxError('illegal character inside value definition', i);
         plainFieldRec = i;
       }
       continue;
     }
 
-    if (accentFieldRec !== -1 || stringValueRec !== -1) {
+    if (accentFieldRec !== -1 || sqStringValueRec !== -1 || dqStringValueRec !== -1) {
       continue;
     }
 
     throw new SyntaxError(`illegal character ${s[i]}`, i);
   }
 
-  if (stringValueRec !== -1 || accentFieldRec !== -1) throw new SyntaxError('quotation mark expected', s.length);
+  if (sqStringValueRec !== -1 || dqStringValueRec !== -1 || accentFieldRec !== -1)
+    throw new SyntaxError('quotation mark expected', s.length);
 
   return root;
 }

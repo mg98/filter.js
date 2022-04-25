@@ -101,6 +101,4 @@ The goal of _condition.js_ is to create a language that is not only a powerful t
 
 ❌ Boolean type
 
-❌ Symbol to escape character `'` in value definition
-
-❌ Support for `"` as alternative value quotation marks
+❌ Escaping symbols with `\` inside field or value definitions

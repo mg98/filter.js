@@ -47,10 +47,10 @@ describe('interpret syntax from input', () => {
   });
 
   it('value definition with special characters', () => {
-    expect(parseWords("name = '=Manni'")).toEqual([
+    expect(parseWords("name = '`=Manni'")).toEqual([
       { type: WordType.Field, value: 'name' },
       { type: WordType.Operator, value: '=' },
-      { type: WordType.Value, value: '=Manni' },
+      { type: WordType.Value, value: '`=Manni' },
     ]);
     expect(parseWords("name = '=Manni<>'")).toEqual([
       { type: WordType.Field, value: 'name' },
@@ -321,6 +321,33 @@ describe('interpret syntax from input', () => {
       { type: WordType.Field, value: 'name' },
       { type: WordType.Operator, value: '=' },
       { type: WordType.Value, value: 'Jeff' },
+    ]);
+  });
+
+  it('define values using double quotes', () => {
+    expect(parseWords('a = "ok"')).toEqual([
+      { type: WordType.Field, value: 'a' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: 'ok' },
+    ]);
+    expect(parseWords('a = "o\'k\'"')).toEqual([
+      { type: WordType.Field, value: 'a' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: "o'k'" },
+    ]);
+    expect(parseWords('a = \'o"k"\'')).toEqual([
+      { type: WordType.Field, value: 'a' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: 'o"k"' },
+    ]);
+    expect(parseWords('a = "ok" or b = \'not ok\'')).toEqual([
+      { type: WordType.Field, value: 'a' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: 'ok' },
+      { type: WordType.LogicalOperator, value: 'or' },
+      { type: WordType.Field, value: 'b' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: 'not ok' },
     ]);
   });
 });
