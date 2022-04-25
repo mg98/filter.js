@@ -42,10 +42,11 @@ export function parseWords(query: string): Word[] {
   let sqStringValueRec = -1; // single quotes
   let dqStringValueRec = -1; // double quotes
   let numericValueRec = -1;
-  let notRec = false;
+  let notRec = false; // recording "!"
   let lessThanRec = false;
   let greaterThanRec = false;
   let arrayRec = false;
+  let lastEscape = -2;
   let groupDepth = 0;
 
   const s = query + ' ';
@@ -67,8 +68,16 @@ export function parseWords(query: string): Word[] {
         lastWord.value.push(typeof value === 'number' ? value : value.toString());
         lastWord.value = lastWord.value;
       } else {
+        if (typeof value === 'string') {
+          value = value.replace(/\\/g, '');
+        }
         words.push(new Word({ type: WordType.Value, value }));
       }
+    }
+
+    if (s[i] === '\\') {
+      lastEscape = i;
+      continue;
     }
 
     if (s[i] === '=' && accentFieldRec === -1 && sqStringValueRec === -1 && dqStringValueRec === -1) {
@@ -201,7 +210,7 @@ export function parseWords(query: string): Word[] {
       continue;
     }
 
-    if (s[i] === '`' && sqStringValueRec === -1 && dqStringValueRec === -1) {
+    if (s[i] === '`' && lastEscape !== i - 1 && sqStringValueRec === -1 && dqStringValueRec === -1) {
       if (plainFieldRec !== -1) throw new SyntaxError('illegal character inside field definition', i);
 
       if (accentFieldRec === -1) {
@@ -210,7 +219,7 @@ export function parseWords(query: string): Word[] {
         words.push(
           new Word({
             type: WordType.Field,
-            value: s.slice(accentFieldRec + 1, i),
+            value: s.slice(accentFieldRec + 1, i).replace(/\\/g, ''),
           }),
         );
         accentFieldRec = -1;
@@ -218,7 +227,7 @@ export function parseWords(query: string): Word[] {
       continue;
     }
 
-    if (s[i] === "'" && dqStringValueRec === -1) {
+    if (s[i] === "'" && lastEscape !== i - 1 && dqStringValueRec === -1) {
       if (accentFieldRec !== -1 || plainFieldRec !== -1)
         throw new SyntaxError('illegal character inside field definition', i);
 
@@ -231,7 +240,7 @@ export function parseWords(query: string): Word[] {
       continue;
     }
 
-    if (s[i] === '"' && sqStringValueRec === -1) {
+    if (s[i] === '"' && lastEscape !== i - 1 && sqStringValueRec === -1) {
       if (accentFieldRec !== -1 || plainFieldRec !== -1)
         throw new SyntaxError('illegal character inside field definition', i);
 

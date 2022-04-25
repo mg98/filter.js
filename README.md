@@ -100,5 +100,3 @@ The goal of _condition.js_ is to create a language that is not only a powerful t
 **Not yet supported...**
 
 ❌ Boolean type
-
-❌ Escaping symbols with `\` inside field or value definitions

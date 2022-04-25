@@ -350,6 +350,24 @@ describe('interpret syntax from input', () => {
       { type: WordType.Value, value: 'not ok' },
     ]);
   });
+
+  it('escaping symbols', () => {
+    expect(parseWords('a = "\\"ok\\""')).toEqual([
+      { type: WordType.Field, value: 'a' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: '"ok"' },
+    ]);
+    expect(parseWords("a = 'i\\'m escaping '")).toEqual([
+      { type: WordType.Field, value: 'a' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: "i'm escaping " },
+    ]);
+    expect(parseWords('`field\\`` = 5')).toEqual([
+      { type: WordType.Field, value: 'field`' },
+      { type: WordType.Operator, value: '=' },
+      { type: WordType.Value, value: 5 },
+    ]);
+  });
 });
 
 describe('arrIncludes function', () => {
