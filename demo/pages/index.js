@@ -11,8 +11,16 @@ import CopySvg from '../public/copy.svg'
 export default function Home() {
   const [val, setVal ] = useState("Age > 18 and Address.City not in ('Hoover', 'Asheville')")
   let [error, setError] = useState(null)
-  let [data, setData] = useState(sample.filter(el => matchCondition(el, val)))
-  
+
+  let initData
+  try {
+    initData = sample.filter(el => matchCondition(el, val));
+    error = ''
+  } catch (err) {
+    error = err;
+  }
+  let [data, setData] = useState(initData)
+
   const updateData = () => {
     try {
       setData(sample.filter(el => matchCondition(el, val)));
