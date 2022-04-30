@@ -20,7 +20,7 @@ import { SyntaxError, GrammarError, ObjectKeyNotFoundError } from './types';
  * This exception is thrown when the fields targetted in the query were not found in the given object.
  */
 export function matchCondition(obj: object, query: string): boolean {
-  const words = parseWords(query);
+  const words = parseWords(query || '');
   validateGrammer(words);
   return matchWords(obj, words);
 }
