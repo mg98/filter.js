@@ -9,6 +9,7 @@ import { GrammarError, Word, WordType } from './types';
  * @throws {@link GrammarError}
  */
 export function validateGrammer(words: Word[]): boolean {
+  if (words.length === 0) return true;
   let expectedTypes = [WordType.Field, WordType.Group];
 
   for (let i = 0; i < words.length; i++) {

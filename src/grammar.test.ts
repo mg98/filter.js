@@ -2,6 +2,10 @@ import { validateGrammer } from './grammar';
 import { GrammarError, WordType } from './types';
 
 describe('grammar validation', () => {
+  it('empty words', () => {
+    validateGrammer([]);
+  });
+
   it('field op value', () => {
     validateGrammer([{ type: WordType.Field }, { type: WordType.Operator }, { type: WordType.Value }]);
   });
