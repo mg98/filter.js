@@ -3,7 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import DataTable from './components/dataTable'
 import sample from '../sample.json'
-import { matchCondition } from '@mg98/condition-js'
+import { matchCondition } from '@mg98/filter-js'
 import { useState } from 'react'
 import GitHubSvg from '../public/github.svg'
 import CopySvg from '../public/copy.svg'
@@ -32,7 +32,7 @@ export default function Home() {
 
   const CopyCommand = () => {
     useEffect(() => {
-      navigator.clipboard.writeText('npm i @mg98/condition-js')
+      navigator.clipboard.writeText('npm i @mg98/flter-js')
     })
   }
 
@@ -49,21 +49,21 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <a href="https://github.com/mg98/condition-js" title='View source code'>
+      <a href="https://github.com/mg98/filter-js" title="View source code">
         <GitHubSvg />
       </a>
 
       <main className={styles.main}>
         <h1 className={styles.title}>condition.js</h1>
-        <a href="https://www.npmjs.com/package/@mg98/condition-js">
-          <img src='https://badge.fury.io/js/@mg98%2Fcondition-js.svg' alt='npm version' height='18' width='116' />
+        <a href="https://www.npmjs.com/package/@mg98/filter-js">
+          <img src='https://badge.fury.io/js/@mg98%2Ffilter-js.svg' alt='npm version' height='18' width='116' />
         </a>
 
         <p className={styles.description}>This JS library enables you to formulate complex conditions in a convenient string syntax which can then be matched with objects and further query a JSON array. 
           Give it a try!</p>
 
         <p className={styles.install} title='Click to copy' onClick={CopyCommand()}>
-          <code>npm i @mg98/condition-js</code>
+          <code>npm i @mg98/filter-js</code>
           <CopySvg className={styles.copyBtn} alt='Copy' />
         </p>
 

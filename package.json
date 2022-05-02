@@ -1,5 +1,5 @@
 {
-  "name": "@mg98/condition-js",
+  "name": "@mg98/filter-js",
   "version": "0.3.2",
   "description": "Filter JSONs using SQL-like conditional expression syntax!",
   "main": "lib/cjs/index.js",
@@ -22,10 +22,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mg98/condition-js.git"
+    "url": "git+https://github.com/mg98/filter-js.git"
   },
   "publishConfig": {
-    "name": "@mg98/condition-js",
+    "name": "@mg98/filter-js",
     "registry": "https://registry.npmjs.org"
   },
   "keywords": [

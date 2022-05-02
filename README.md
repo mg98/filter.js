@@ -4,38 +4,38 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mg98/condition-js/actions/workflows/test.yml">
-    <img src="https://github.com/mg98/condition-js/actions/workflows/test.yml/badge.svg">
+  <a href="https://github.com/mg98/filter-js/actions/workflows/test.yml">
+    <img src="https://github.com/mg98/filter-js/actions/workflows/test.yml/badge.svg">
   </a>
-  <a href="https://codecov.io/gh/mg98/condition-js">
-    <img src="https://codecov.io/gh/mg98/condition-js/branch/main/graph/badge.svg?token=RNG38NX4WY">
+  <a href="https://codecov.io/gh/mg98/filter-js">
+    <img src="https://codecov.io/gh/mg98/filter-js/branch/main/graph/badge.svg?token=RNG38NX4WY">
   </a>
   <a href="https://deepscan.io/dashboard#view=project&tid=17510&pid=20859&bid=581033">
     <img src="https://deepscan.io/api/teams/17510/projects/20859/branches/581033/badge/grade.svg">
   </a>
-  <a href="https://www.npmjs.com/package/@mg98/condition-js">
-    <img src="https://img.shields.io/npm/v/@mg98/condition-js">
+  <a href="https://www.npmjs.com/package/@mg98/filter-js">
+    <img src="https://img.shields.io/npm/v/@mg98/filter-js">
   </a>
   <a href="./LICENSE">
-    <img src="https://img.shields.io/github/license/mg98/condition-js">
+    <img src="https://img.shields.io/github/license/mg98/filter-js">
   </a>
 </p>
 
 <hr>
 
 _condition.js_ is a lightweight JavaScript library that enables you to use a comprehensible string syntax to run complex filter operations on a set of JSONs (or only one for that matter).
-The syntax is strongly inspired by the syntax for the expression of conditions in SQL and is meant to be simple and intuitive, even for non-technical people. [See a demo!](https://condition.js.org)
+The syntax is strongly inspired by the syntax for the expression of conditions in SQL and is meant to be simple and intuitive, even for non-technical people. [See a demo!](https://filter.js.org)
 
 ## Install
 
 ```
-npm i @mg98/condition-js
+npm i @mg98/filter-js
 ```
 
 ## Example
 
 ```js
-import { matchCondition } from 'condition-js';
+import { matchCondition } from '@mg98/filter-js';
 
 const clients = [
     {
