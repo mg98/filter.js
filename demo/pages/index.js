@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>condition.js - Query JSONs using SQL-like syntax!</title>
+        <title>filter.js - Query JSONs using SQL-like syntax!</title>
         <meta name="description" content="This JS library that enables you to formulate complex conditions in a convenient string syntax which can then be matched with objects and further query a JSON array." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -54,7 +54,7 @@ export default function Home() {
       </a>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>condition.js</h1>
+        <h1 className={styles.title}>filter.js</h1>
         <a href="https://www.npmjs.com/package/@mg98/filter-js">
           <img src='https://badge.fury.io/js/@mg98%2Ffilter-js.svg' alt='npm version' height='18' width='116' />
         </a>

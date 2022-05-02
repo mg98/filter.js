@@ -1,4 +1,4 @@
-<h1 align="center">condition.js</h1>
+<h1 align="center">filter.js</h1>
 <p align="center">
     Filter JSONs using SQL-like syntax!
 </p>
@@ -23,7 +23,7 @@
 
 <hr>
 
-_condition.js_ is a lightweight JavaScript library that enables you to use a comprehensible string syntax to run complex filter operations on a set of JSONs (or only one for that matter).
+_filter.js_ is a lightweight JavaScript library that enables you to use a comprehensible string syntax to run complex filter operations on a set of JSONs (or only one for that matter).
 The syntax is strongly inspired by the syntax for the expression of conditions in SQL and is meant to be simple and intuitive, even for non-technical people. [See a demo!](https://filter.js.org)
 
 ## Install
@@ -81,7 +81,7 @@ console.log(alcoholClients);
 
 ## Features
 
-The goal of _condition.js_ is to create a language that is not only a powerful tool, but also a convenient and fault-tolerant one.
+The goal of _filter.js_ is to create a language that is not only a powerful tool, but also a convenient and fault-tolerant one.
 
 ✅ Basic comparison operators `=`, `!=`, `>`, `<`, `>=`, `<=`
 

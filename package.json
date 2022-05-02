@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mg98/filter-js.git"
+    "url": "git+https://github.com/mg98/filter.js.git"
   },
   "publishConfig": {
     "name": "@mg98/filter-js",
