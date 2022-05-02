@@ -1,6 +1,6 @@
 {
   "name": "@mg98/filter-js",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Filter JSONs using SQL-like conditional expression syntax!",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
