@@ -4,11 +4,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mg98/filter-js/actions/workflows/test.yml">
-    <img src="https://github.com/mg98/filter-js/actions/workflows/test.yml/badge.svg">
+  <a href="https://github.com/mg98/filter.js/actions/workflows/test.yml">
+    <img src="https://github.com/mg98/filter.js/actions/workflows/test.yml/badge.svg">
   </a>
-  <a href="https://codecov.io/gh/mg98/filter-js">
-    <img src="https://codecov.io/gh/mg98/filter-js/branch/main/graph/badge.svg?token=RNG38NX4WY">
+  <a href="https://codecov.io/gh/mg98/filter.js">
+    <img src="https://codecov.io/gh/mg98/filter.js/branch/main/graph/badge.svg?token=RNG38NX4WY"/>
   </a>
   <a href="https://deepscan.io/dashboard#view=project&tid=17510&pid=20859&bid=581033">
     <img src="https://deepscan.io/api/teams/17510/projects/20859/branches/581033/badge/grade.svg">
@@ -17,7 +17,7 @@
     <img src="https://img.shields.io/npm/v/@mg98/filter-js">
   </a>
   <a href="./LICENSE">
-    <img src="https://img.shields.io/github/license/mg98/filter-js">
+    <img src="https://img.shields.io/github/license/mg98/filter.js">
   </a>
 </p>
 
