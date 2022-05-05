@@ -49,7 +49,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <a href="https://github.com/mg98/filter-js" title="View source code">
+      <a href="https://github.com/mg98/filter.js" title="View source code">
         <GitHubSvg />
       </a>
 
