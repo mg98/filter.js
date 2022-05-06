@@ -60,7 +60,7 @@ const clients = [
     }
 ]
 
-const alcoholClients = data.filter(client => matchCondition(client, 
+const alcoholClients = clients.filter(client => matchCondition(client, 
   "(age >= 18 and country in ('Germany', 'Turkey', 'Vietnam') or age >= 21 and country = 'USA') and country != 'Arabia'"
 ));
 
