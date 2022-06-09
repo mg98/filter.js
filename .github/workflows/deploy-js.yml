@@ -1,0 +1,39 @@
+name: Deploy JS Bundles
+
+on:
+  push:
+    tags:
+      - '*'
+defaults:
+  run:
+    working-directory: demo
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Install and build
+        run: |
+          npm ci
+          npm update @mg98/filter-js 
+          npm run build
+          cd .. 
+          npm ci
+          npm run browserify
+      - name: Export static files
+        run: npm run export
+      - name: Prepare directories
+        run: mkdir -p ./out/tags/${GITHUB_REF##*/}
+      - name: Create latest bundle files
+        run: cp ../lib/bundle*.js ./out/.
+      - name: Create tagged bundle files
+        run: cp ../lib/bundle*.js ./out/tags/${GITHUB_REF##*/}/.
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          branch: gh-pages
+          folder: demo/out

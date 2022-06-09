@@ -62,9 +62,9 @@ const clients = [
 
 const alcoholClients = clients.filter(client => matchCondition(client, 
   "(age >= 18 and country in ('Germany', 'Turkey', 'Vietnam') or age >= 21 and country = 'USA') and country != 'Arabia'"
-));
+))
 
-console.log(alcoholClients);
+console.log(alcoholClients)
 // [
 //     {
 //         name: 'Hai Dang',
@@ -95,8 +95,34 @@ The goal of _filter.js_ is to create a language that is not only a powerful tool
 
 ✅ Deep property access (e.g. `address.street = 'Elm Str'`)
 
-✅ Nested expressions using parantheses
+✅ Nested expressions using parentheses
 
 **Not yet supported...**
 
 ❌ Boolean type
+
+❌ Understanding of date & time
+
+
+## Usage in Browser
+
+A compiled and browserified version of this library is available at 
+- https://filter.js.org/bundle.js and 
+- https://filter.js.org/bundle.min.js _(minified)_.
+
+This will give you the latest version.
+
+However, to avoid the risk of breaking changes in a new version, it is recommended to target a specific [release tag](https://github.com/mg98/filter.js/tags), e.g. https://filter.js.org/tags/v0.4.2/bundle.min.js.
+
+### Example
+
+```html
+<script src="https://filter.js.org/bundle.min.js"></script>
+<script>
+  const clients = [ /* ... */ ]
+
+  const alcoholClients = clients.filter(client => filterjs.matchCondition(client, 
+    "(age >= 18 and country in ('Germany', 'Turkey', 'Vietnam') or age >= 21 and country = 'USA') and country != 'Arabia'"
+  ))
+</script>
+```
