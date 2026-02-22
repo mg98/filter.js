@@ -1,44 +1,32 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import DataTable from './components/dataTable'
 import sample from '../sample.json'
 import { matchCondition } from '@mg98/filter-js'
-import { useState } from 'react'
 import GitHubSvg from '../public/github.svg'
 import CopySvg from '../public/copy.svg'
 
 export default function Home() {
-  const [val, setVal ] = useState("Age > 18 and Address.City not in ('Hoover', 'Asheville')")
-  let [error, setError] = useState(null)
+  const [val, setVal] = useState("Age > 18 and Address.City not in ('Hoover', 'Asheville')")
+  const [error, setError] = useState(null)
+  const [data, setData] = useState([])
 
-  let initData
-  try {
-    initData = sample.filter(el => matchCondition(el, val));
-    error = ''
-  } catch (err) {
-    error = err;
-  }
-  let [data, setData] = useState(initData)
-
-  const updateData = () => {
+  useEffect(() => {
     try {
       setData(sample.filter(el => matchCondition(el, val)));
       setError(null);
     } catch (err) {
-      setError(err)
+      setError(err);
     }
-  }
+  }, [val])
 
-  const CopyCommand = () => {
-    useEffect(() => {
-      navigator.clipboard.writeText('npm i @mg98/flter-js')
-    })
+  const copyCommand = () => {
+    navigator.clipboard.writeText('npm i @mg98/filter-js')
   }
 
   const handleChange = e => {
     setVal(e.target.value);
-    updateData()
   }
 
   return (
@@ -59,10 +47,10 @@ export default function Home() {
           <img src='https://badge.fury.io/js/@mg98%2Ffilter-js.svg' alt='npm version' height='18' width='116' />
         </a>
 
-        <p className={styles.description}>This JS library enables you to formulate complex conditions in a convenient string syntax which can then be matched with objects and further query a JSON array. 
+        <p className={styles.description}>This JS library enables you to formulate complex conditions in a convenient string syntax which can then be matched with objects and further query a JSON array.
           Give it a try!</p>
 
-        <p className={styles.install} title='Click to copy' onClick={CopyCommand()}>
+        <p className={styles.install} title='Click to copy' onClick={copyCommand}>
           <code>npm i @mg98/filter-js</code>
           <CopySvg className={styles.copyBtn} alt='Copy' />
         </p>
@@ -76,7 +64,7 @@ export default function Home() {
         {error && <p style={{color:'red'}}>Error: {error.message}</p>}
 
         <DataTable data={data} />
-        <div className={styles.resultCount}>{data.length} results.</div>
+        <div className={styles.resultCount}>{data ? data.length : 0} results.</div>
       </main>
 
       <footer className={styles.footer}>
